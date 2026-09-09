@@ -1,117 +1,198 @@
 # 🖱️ Virtual AI Mouse & Air-Writing Keyboard
 
-An AI-powered, webcam-based desktop control system that allows users to control a computer using **hand gestures** instead of a physical mouse.
+> A real-time computer interaction system that uses **hand gestures and air-writing** to control a Windows computer through a webcam.
 
-The project also includes an **Air-Writing feature**, where users can draw letters in the air using their index finger. The system recognizes the letter and automatically opens the application mapped to it.
+## 📌 Overview
 
-Built using **Python, OpenCV, MediaPipe, cvzone, PyAutoGUI, and NumPy**.
+Virtual AI Mouse & Air-Writing Keyboard is a **Computer Vision based desktop application** that replaces traditional mouse interactions with natural hand gestures.
 
----
+The system uses a webcam to detect and track the user's hand in real time. Based on finger positions and gestures, it converts hand movements into computer actions such as **cursor movement, clicking, double-clicking, right-clicking, and drag-and-drop**.
 
-## 💡 What Does This Project Do?
+The project also introduces an **Air-Writing mechanism**. Users can raise their Index and Middle fingers, draw a supported letter in the air using the Index finger, and the system recognizes the letter and automatically performs the corresponding action.
 
-The system uses a webcam to detect the user's hand and track finger movements in real time.
-
-It allows users to:
-
-- Move the mouse cursor using hand gestures
-- Perform left click, right click and double click
-- Drag and drop using hand gestures
-- Write letters in the air
-- Recognize air-written letters
-- Open applications automatically using recognized letters
-- Take screenshots using an open-hand gesture
+The complete system works locally on the user's computer without requiring a separate hardware controller.
 
 ---
 
-## ⚙️ How It Works
+## 🎯 What Problem Does It Solve?
 
-**Webcam → Hand Detection → Finger Tracking → Gesture Recognition → Computer Action**
+Traditional computer interaction depends mainly on physical input devices such as a mouse and keyboard.
 
-For Air-Writing:
+This project explores a **touch-free Human-Computer Interaction (HCI)** approach where a webcam and hand gestures can be used as an alternative input method.
 
-**Webcam → Hand Tracking → Finger Movement → Letter Recognition → Application Launch**
+It can be useful for:
 
-The system detects **21 hand landmarks** using MediaPipe. Based on the position and movement of the fingers, it identifies the user's gesture and performs the corresponding action.
-
-For Air-Writing, the movement of the index finger is recorded as a path. The path is analyzed and compared with predefined letter patterns to recognize the written letter.
-
----
-
-## 🌟 Key Features
-
-### 🖐️ Virtual Mouse
-
-| Gesture | Action |
-|---|---|
-| Index Finger | Move Cursor |
-| Thumb + Index | Left Click |
-| Thumb + Middle | Right Click |
-| Thumb + Ring | Double Click |
-| Thumb + Pinky | Drag & Drop |
-
-### ✍️ Air-Writing
-
-Raise **Index + Middle fingers** to activate Air-Writing mode.
-
-Draw a supported letter in the air using your index finger.
-
-| Letter | Action |
-|---|---|
-| W | Open WhatsApp Web |
-| Y | Open YouTube |
-| G | Open Google |
-| I | Open Instagram |
-| C | Open Google Chrome |
-| N | Open Windows Notepad |
-
-After the writing is completed, the system recognizes the letter and automatically performs the mapped action.
-
-### 📸 Screenshot
-
-Raise all five fingers with an **Open Hand** gesture.
-
-The system captures a screenshot and saves it with a timestamp.
+- Touch-free computer interaction
+- Accessibility-focused interfaces
+- Human-Computer Interaction research
+- Computer Vision applications
+- Gesture-controlled desktop automation
+- Experimental AI-based input systems
 
 ---
 
-## 🧠 Letter Recognition
+## ⚙️ System Workflow
 
-The Air-Writing recognition system uses:
-
-- **Trajectory/Path Analysis** to analyze the movement and shape of the written letter.
-- **Template Matching** to compare the generated writing with reference letter templates.
-
-Both results are combined to select the most likely letter.
-
----
-
-## 🛠️ Technologies Used
-
-- **Python** — Core programming
-- **OpenCV** — Webcam and image processing
-- **MediaPipe** — Hand landmark detection
-- **cvzone** — Hand tracking utilities
-- **PyAutoGUI** — Mouse and computer control
-- **NumPy** — Mathematical calculations
-- **Git & GitHub** — Version control
-
----
-
-## 📁 Project Structure
+### Virtual Mouse
 
 ```text
+Webcam
+   ↓
+Hand Detection
+   ↓
+21 Hand Landmark Tracking
+   ↓
+Finger State / Gesture Detection
+   ↓
+Gesture Classification
+   ↓
+Mouse Action
+Air-Writing
+Webcam
+   ↓
+Hand Detection
+   ↓
+Air-Writing Mode
+   ↓
+Index Finger Trajectory
+   ↓
+Trajectory Processing
+   ↓
+Letter Recognition
+   ↓
+Application Mapping
+   ↓
+Application Launch
+🧠 Core Technology
+The system detects the user's hand using MediaPipe hand landmarks.
+A hand is represented using 21 landmark points, which provide the positions of important parts of the hand and fingers.
+These landmark positions are used to determine:
+Which fingers are raised
+Which fingers are touching
+Finger movement
+Hand position
+Gesture type
+Air-writing trajectory
+The recognized gesture is then passed to the appropriate controller to perform the required computer action.
+✨ Features
+1. 🖱️ Gesture-Based Virtual Mouse
+The application provides complete basic mouse interaction through hand gestures.
+Gesture
+Function
+☝️ Index Finger
+Move Cursor
+🤏 Thumb + Index
+Left Click
+🤏 Thumb + Middle
+Right Click
+🤏 Thumb + Ring
+Double Click
+🤏 Thumb + Pinky
+Drag & Drop
+Cursor movement is mapped from the camera frame to the computer screen and smoothed to reduce unwanted cursor movement and jitter.
+2. ✍️ Air-Writing
+Air-Writing allows the user to write letters without touching a keyboard.
+Activation
+Raise:
+Index Finger + Middle Finger
+This activates Air-Writing mode.
+The system then tracks the movement of the Index fingertip and stores it as a trajectory.
+When the writing gesture ends, the collected trajectory is processed and sent to the recognition system.
+3. 🔤 Air-Written Letter Recognition
+The current system supports six letters:
+Letter
+Mapped Action
+W
+WhatsApp Web
+Y
+YouTube
+G
+Google
+I
+Instagram
+C
+Google Chrome
+N
+Windows Notepad
+For example:
+Draw "W"
+     ↓
+Letter Recognition
+     ↓
+W detected
+     ↓
+WhatsApp Web opens
+4. 🧩 Dual Recognition Approach
+The letter recognition system combines two different approaches.
+Trajectory / Path Analysis
+The movement of the Index finger is analyzed based on its:
+Shape
+Direction
+Position
+Scale
+Movement pattern
+The trajectory is normalized and compared with predefined letter patterns.
+Template Matching
+The drawn stroke is also compared with stored reference templates for the supported letters.
+The results from both methods are combined to determine the most likely recognized letter.
+This makes the recognition system more robust than relying on only one matching technique.
+5. 📸 Gesture-Based Screenshot
+An Open Hand gesture is used to capture a screenshot.
+Gesture
+All five fingers raised
+🖐️ → Screenshot
+The screenshot is automatically saved with a timestamp.
+Example:
+shot_20260909_105043.png
+Screenshot files are excluded from Git tracking using .gitignore.
+6. 🎨 Real-Time Visual Interface
+The application provides a real-time visual interface that displays:
+Current operating mode
+Hand tracking
+Finger states
+Air-writing strokes
+Recognition information
+Gesture feedback
+Application launch status
+This makes the system easier to operate and understand while running.
+🏗️ Project Architecture
+                    ┌───────────────┐
+                    │    Webcam     │
+                    └───────┬───────┘
+                            ↓
+                  ┌───────────────────┐
+                  │   Hand Tracker    │
+                  │  MediaPipe +      │
+                  │     cvzone        │
+                  └─────────┬─────────┘
+                            ↓
+                  ┌───────────────────┐
+                  │ Gesture Detection │
+                  └───────┬─────┬─────┘
+                          ↓     ↓
+                    ┌─────┘     └──────┐
+                    ↓                   ↓
+             ┌─────────────┐    ┌─────────────┐
+             │ Virtual      │    │ Air-Writing │
+             │ Mouse        │    │ Recognition │
+             └──────┬──────┘    └──────┬──────┘
+                    ↓                   ↓
+             Mouse Actions       Letter Detection
+                                        ↓
+                                 Application Launcher
+📁 Project Structure
 AI-Virtual-Mouse/
 │
 ├── src/
-│   ├── main.py
-│   ├── config.py
-│   ├── hand_tracker.py
-│   ├── mouse_controller.py
-│   ├── air_writer.py
-│   ├── recognizer.py
-│   ├── app_launcher.py
-│   └── camera_preview.py
+│   ├── main.py              # Main application and gesture flow
+│   ├── config.py            # System configuration and thresholds
+│   ├── hand_tracker.py      # Hand and finger tracking
+│   ├── mouse_controller.py  # Cursor and mouse interactions
+│   ├── air_writer.py        # Air-writing trajectory handling
+│   ├── recognizer.py        # Letter recognition engine
+│   ├── app_launcher.py      # Application and URL launching
+│   ├── camera_preview.py    # Real-time visual interface
+│   └── __init__.py
 │
 ├── templates/
 │   ├── W.png
@@ -126,41 +207,73 @@ AI-Virtual-Mouse/
 ├── requirements.txt
 ├── test_system.py
 ├── run.bat
+├── .gitignore
 └── README.md
-
-
-
-
-
-🚀 Installation & Setup
+🛠️ Tech Stack
+Technology
+Role
+Python
+Core application development
+OpenCV
+Webcam capture and image processing
+MediaPipe
+Real-time hand landmark detection
+cvzone
+Hand tracking utilities
+PyAutoGUI
+Mouse and desktop automation
+NumPy
+Numerical and trajectory processing
+Git & GitHub
+Version control and project management
+🚀 Installation
 Requirements
 Windows 10 / 11
 Python 3.10–3.12 recommended
 Working webcam
-Install Dependencies
+Setup
+Clone the repository:
+git clone https://github.com/jiyajiyabhola888-blip/AI-Virtual-Mouse.git
+Open the project directory:
+cd AI-Virtual-Mouse
+Create a virtual environment:
+python -m venv venv
+Activate it:
+venv\Scripts\activate
+Install dependencies:
 pip install -r requirements.txt
-Run the Application
+▶️ Running the Application
+Run from the project root:
 python -m src.main
-Or simply run:
+Or use the Windows launcher:
 run.bat
 🧪 Testing
-Run the automated test suite:
+The project includes an automated test suite for checking the core functionality.
+Run:
 python test_system.py
-The tests verify the main system components and letter recognition functionality.
-🎯 Project Goal
-The goal of this project is to provide a touch-free and natural way to interact with a computer using Computer Vision and hand gestures.
-It combines:
-Computer Vision + Hand Tracking + Gesture Recognition + Air-Writing + Computer Automation
-into a single desktop application.
-🔮 Future Improvements
-Full A–Z Air-Writing support
-More customizable gestures
-Multi-hand support
+The test suite checks components such as:
+Letter recognition
+Trajectory processing
+Template availability
+System components
+Recognition functionality
+🔮 Future Scope
+The project can be further extended with:
+Full A–Z Air-Writing
+More gesture-based computer controls
+Custom gesture mapping
+Multi-hand interaction
 Voice + gesture control
 Improved letter recognition
-Custom application mapping
+Personalized recognition models
 Cross-platform support
+Accessibility-focused interaction modes
+🎓 Learning & Applications
+This project demonstrates practical implementation of:
+Computer Vision → Hand Tracking → Gesture Recognition → Human-Computer Interaction → Desktop Automation
+It can serve as a foundation for developing more advanced AI-powered, touch-free interfaces.
 👩‍💻 Author
 Jiya Bhola
-B.Tech CSE — AI/ML
-GitHub: https://github.com/jiyajiyabhola888-blip⁠�
+B.Tech CSE | AI/ML
+GitHub:
+https://github.com/jiyajiyabhola888-blip⁠
